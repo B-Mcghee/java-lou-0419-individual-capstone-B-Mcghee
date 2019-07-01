@@ -1,8 +1,6 @@
 package com.tsg.superherosighting.dao;
 
-import com.tsg.superherosighting.dto.Location;
-import com.tsg.superherosighting.dto.Organization;
-import com.tsg.superherosighting.dto.SuperHero;
+import com.tsg.superherosighting.dto.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +37,27 @@ public class TestOrganizationImpl {
     Location location2 = testLocations[1];
     Location location3 = testLocations[2];
 
+    private SuperPower[] testSuperPowers = {
+            new SuperPower(1, "fly"),
+            new SuperPower(2, "laser beam eyes"),
+            new SuperPower(3, "lift 1000x bodyweight"),
+            new SuperPower(4, "wash all clothes, fold them and put them away instantly"),
+            new SuperPower(5, "wash all dishes, dry them, and put them away instantly"),
+            new SuperPower(6, "run as fast as the speed of light"),
+            new SuperPower(7, "teleport"),
+            new SuperPower(8, "shapeshifter"),
+            new SuperPower(9, "control the weather"),
+            new SuperPower(10, "freeze objects"),
+            new SuperPower(11, "control fire")
+
+    };
+    private Sighting[] testSightings = {
+            new Sighting(1, location1, LocalDateTime.now().withNano(0), new ArrayList<>()),
+            new Sighting(2, location2, LocalDateTime.now().minusDays(100).withNano(0), new ArrayList<>()),
+            new Sighting(3, location1, LocalDateTime.now().plusDays(100).withNano(0), new ArrayList<>()),
+            new Sighting(4, location3, LocalDateTime.now().plusDays(15).withNano(0), new ArrayList<>())
+    };
+
     private Organization[] testOrganizations = {
             new Organization(1,"Marvel", "New York",location1,new ArrayList<>()),
             new Organization(2,"Justice League", "New York",location2,new ArrayList<>()),
@@ -50,7 +70,9 @@ public class TestOrganizationImpl {
             new SuperHero(3,"Wolverine", "metal claws",true,new ArrayList<>())
     };
 
-
+    SuperHero superhero = testSuperHeroes[0];
+    SuperHero superhero2 = testSuperHeroes[1];
+    SuperHero superhero3 = testSuperHeroes[2];
 
 
     @Before
@@ -88,10 +110,34 @@ public class TestOrganizationImpl {
             heySQL.update(ADD_SUPERHERO, superHero.getId(), superHero.getName(), superHero.getDescription(), superHero.isVillian());
         }
         String INSERT_MEMBERS = "INSERT INTO members(id, heroid, organizationid) VALUES(?,?,?)";
-        heySQL.update(INSERT_MEMBERS, 14, 1, 2);
-        heySQL.update(INSERT_MEMBERS, 15, 2, 2);
-        heySQL.update(INSERT_MEMBERS, 16, 3, 3);
+        heySQL.update(INSERT_MEMBERS, 1, 1, 2);
+        heySQL.update(INSERT_MEMBERS, 2, 2, 2);
+        heySQL.update(INSERT_MEMBERS, 3, 3, 3);
+        String INSERT_INTO_SUPERPOWERS = "INSERT INTO superpowers(id, type) VALUES(?,?)";
+        for (SuperPower powers: testSuperPowers){
+            heySQL.update(INSERT_INTO_SUPERPOWERS,powers.getId(), powers.getType());
+        }
+        String INSERT_HEROPOWERS = "INSERT INTO heropowers(id, heroid,powersid ) VALUES(?,?,?)";
+        heySQL.update(INSERT_HEROPOWERS,1,  1, 1);
+        heySQL.update(INSERT_HEROPOWERS,2,  1, 2);
+        heySQL.update(INSERT_HEROPOWERS, 3, 1, 3);
+        heySQL.update(INSERT_HEROPOWERS, 4, 2, 4);
+        heySQL.update(INSERT_HEROPOWERS, 5, 2, 5);
+        heySQL.update(INSERT_HEROPOWERS,6,  2, 6);
+        heySQL.update(INSERT_HEROPOWERS,  7,2, 7);
+        heySQL.update(INSERT_HEROPOWERS,8, 3, 8);
+        heySQL.update(INSERT_HEROPOWERS,9, 3, 9);
+        heySQL.update(INSERT_HEROPOWERS, 10, 3, 10);
 
+        for (int i = 0; i < 3; i++) {
+            superhero.addPower(testSuperPowers[i]);
+        }
+        for (int i = 3; i < 7; i++) {
+            superhero2.addPower(testSuperPowers[i]);
+        }
+        for (int i = 7; i < 10; i++) {
+            superhero3.addPower(testSuperPowers[i]);
+        }
         testOrganizations[1].addMember(testSuperHeroes[0]);
         testOrganizations[1].addMember(testSuperHeroes[1]);
         testOrganizations[2].addMember(testSuperHeroes[2]);
@@ -100,7 +146,7 @@ public class TestOrganizationImpl {
 
     @Test
     public void testAddOrganization() {
-        Organization organization = new Organization(1,"Marvel", "New York",location1,new ArrayList<>());
+        Organization organization = testOrganizations[1];
 
         heroDao.addOrganization(organization);
         List<Organization> allOrganizations = heroDao.getAllOrganizations();
