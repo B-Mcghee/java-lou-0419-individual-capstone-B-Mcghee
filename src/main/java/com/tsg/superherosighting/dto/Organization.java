@@ -19,4 +19,9 @@ public class Organization {
     public void addMember(SuperHero hero){
         this.members.add(hero);
     }
+
+
+    public void addLocation(Location location){
+        this.location = location;
+    }
 }
