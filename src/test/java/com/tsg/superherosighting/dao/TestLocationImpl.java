@@ -181,17 +181,15 @@ public class TestLocationImpl {
 
     @Test
     public void testAddLocation() {
-        Location location = new Location(1,"Stadium", "an arena", "999 athlete avenue",new BigDecimal("22.25551600"),
-                new BigDecimal(
-                "-25.75872300"));
+        Location location = location1;
 
         heroDao.addLocation(location);
         List<Location> allLocations = heroDao.getAllLocations();
 
         assertNotNull("List should never be null", allLocations);
-        assertEquals("should only have 1 location in list", 1, allLocations.size());
+        assertEquals("should only have 1 location in list", 4, allLocations.size());
 
-        Location testLocation = allLocations.get(0);
+        Location testLocation = heroDao.getLocation(location.getId());
         assertEquals("should equal each other", location, testLocation);
 
 
@@ -200,9 +198,7 @@ public class TestLocationImpl {
 
     @Test
     public void testGetLocation() {
-        Location location = new Location(1,"Stadium", "an arena", "999 athlete avenue",new BigDecimal("22.25551600"),
-                new BigDecimal(
-                        "-25.75872300"));
+        Location location = location1;
 
         heroDao.addLocation(location);
         Location testLocation = heroDao.getLocation(location.getId());
@@ -214,9 +210,7 @@ public class TestLocationImpl {
 
     @Test
     public void testEditLocation() {
-        Location location = new Location(1,"Stadium", "an arena", "999 athlete avenue",new BigDecimal("22.25551600"),
-                new BigDecimal(
-                        "-25.75872300"));
+        Location location = location1;
         heroDao.addLocation(location);
         Location toEdit = heroDao.getLocation(location.getId());
         assertEquals("they should equal each other", location, toEdit);
