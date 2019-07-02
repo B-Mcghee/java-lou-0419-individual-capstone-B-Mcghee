@@ -351,13 +351,14 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
         }
     }
 
-    private List<SuperPower> getSuperHeroPowers(int id) {
+    public List<SuperPower> getSuperHeroPowers(int id) {
         final String GET_POWERS_WITH_ID = "SELECT superpowers.* FROM superpowers JOIN" +
                 " heropowers ON heropowers.powersid = superpowers.id where heropowers.heroid = ?";
         List<SuperPower> powers = heySQL.query(GET_POWERS_WITH_ID, new SuperPowerMapper(), id);
         return powers;
 
     }
+
 
     @Override
     public List<SuperHero> getAllSuperHeros() {
@@ -391,7 +392,7 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
     public void removeSuperHero(int id) {
         final String DELETE_HEROPOWERS = "DELETE FROM heropowers  WHERE heropowers.heroid = ?";
         final String DELETE_MEMBERS = "DELETE FROM members  WHERE members.heroid = ?";
-        final String DELETE_HEROSIGHTINGS = "DELETE FROM herosightings WHERE herosightings.heroid";
+        final String DELETE_HEROSIGHTINGS = "DELETE FROM herosightings WHERE herosightings.heroid = ?";
         final String DELETE_SUPERHERO = "DELETE FROM superheroes  WHERE id = ?";
         heySQL.update(DELETE_MEMBERS, id);
         heySQL.update(DELETE_HEROPOWERS, id);
@@ -453,5 +454,13 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
 
         final String DELETE_FROM_SUPERPOWERS = "DELETE FROM superpowers WHERE id = ?";
         heySQL.update(DELETE_FROM_SUPERPOWERS, id);
+    }
+    public List<SuperHero> getSuperHeroWithPower(int id) {
+        final String GET_POWERS_WITH_ID = "SELECT superheroes.* from superheroes " +
+                "JOIN heropowers ON heropowers.heroid = superheroes.id where heropowers.powersid = ?";
+        List<SuperHero> heroes = heySQL.query(GET_POWERS_WITH_ID, new SuperHeroMapper(), id);
+
+        return heroes;
+
     }
 }

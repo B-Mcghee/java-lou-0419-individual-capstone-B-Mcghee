@@ -1,0 +1,92 @@
+
+<html xmlns:th="http//www.thymeleaf.org" xmlns ="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link th:href="@{/css/main.css}" href="../static/css/main.css"
+          rel="stylesheet" type="text/css" media="screen"/>
+
+    <title>Super Powers</title>
+</head>
+<body>
+<h1 id="superPowerHeader" class="jumbotron text-light bg-dark text-center">Super Powers</h1>
+<header>
+
+            <ul class="navbar navbar-expand-lg navbar-dark bg-dark nav-fill nav-pills">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Add Super Power</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">View Super Power</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Update Super Power</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Delete Super Power</a>
+                </li>
+
+            </ul>
+
+
+    </div>
+    </nav>
+</header>
+<div class="container-full-width row">
+<div class="col-4">
+
+<h3>All Super Powers</h3>
+<ul id="powers" >
+    <li th:each = "power : ${allPowers}">
+        <label>Name: </label><span th:text= "${power.type}" ></span><label></label>
+    </li>
+</ul>
+</div>
+<div class="col-8">
+    <div class="row">
+        <h2 class="col-12">View a Super Power</h2>
+        <!--<p th:text = "${singlepower}"></p>-->
+        <!-- Example single danger button -->
+        <div class="row col-12">
+
+        <input type="text" class="form-control message-box col-8" id="message-input" readonly>
+        <div class="btn-group col-4">
+            <button type="button" class="btn btn-Secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Choose a Power
+            </button>
+            <div class="dropdown-menu" >
+                <ul th:each="power :${allPowers}">
+                    <li>
+                    <a class="dropdown-item power" th:value= "${power.type}" th:text= "${power.type}" href="#"></a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        </div>
+        <div class="row col-12">
+            <div th:each = "hero : ${heroesWithPower}">
+                <div class="col-3" th:text = "${hero.name}"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/src/hero.js}"></script>
+</body>
+</html>

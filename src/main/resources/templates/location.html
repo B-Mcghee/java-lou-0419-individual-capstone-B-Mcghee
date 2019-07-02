@@ -1,0 +1,63 @@
+
+<html xmlns:th="http//www.thymeleaf.org" xmlns ="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+
+    <title>Locations</title>
+</head>
+<body>
+<header>
+    <a class="navbar-brand" href="#">Navbar w/ text</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+      Navbar text with an inline element
+    </span>
+    </div>
+</header>
+<div class="container">
+<h1>OMG!</h1>
+<h3>All Locations</h3>
+<ul id="locations" >
+    <li><span>yo</span></li>
+    <li th:each = "viewAll : ${allLocations}">
+        <label>Name: </label><span th:text= "${viewAll.value.name}" ></span><label></label>
+    <!--<label>description: <span th:text="${viewAll.value.description}"></span></label>-->
+    <!--<label>address: <span th:text="${viewAll.value.address}"></span></label>-->
+    <!--<label>latitude: <span th:text="${viewAll.value.latitude}"></span></label>-->
+    <!--<label>longitude: <span th:text="${viewAll.value.longitude}"></span></label>-->
+    </li>
+</ul>
+
+
+
+
+
+
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+
+</body>
+</html>
