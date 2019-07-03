@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-
+    <script src="https://kit.fontawesome.com/c50d94bbae.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
     <link th:href="@{/css/main.css}" href="../static/css/main.css"
           rel="stylesheet" type="text/css" media="screen"/>
@@ -22,16 +22,19 @@
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Add Super Power</a>
+                    <a class="nav-link" href="/HeroSighting/superpower/add/">Sightings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">View Super Power</a>
+                    <a class="nav-link" href="/HeroSighting/superpower/add/">Organizations</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Update Super Power</a>
+                    <a class="nav-link" href="/HeroSighting/superhero/display">Super Heroes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Delete Super Power</a>
+                    <a class="nav-link" href="/HeroSighting/superpower/update/">Locations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/HeroSighting/superpower/display">Super Powers</a>
                 </li>
 
             </ul>
@@ -44,37 +47,48 @@
 <div class="col-4">
 
 <h3>All Super Powers</h3>
-<ul id="powers" >
-    <li th:each = "power : ${allPowers}">
-        <label>Name: </label><span th:text= "${power.type}" ></span><label></label>
+<ul >
+    <li  class = "power" th:value= "${power.id}" th:each = "power : ${allPowers}">
+        <h5 class="powerGroup" th:text= "${power.type}" ></h5><i class=" icon far fa-edit"></i><i class="icon fas fa-times-circle"></i>
     </li>
 </ul>
 </div>
 <div class="col-8">
-    <div class="row">
-        <h2 class="col-12">View a Super Power</h2>
+    <div class="col-8">
+
         <!--<p th:text = "${singlepower}"></p>-->
         <!-- Example single danger button -->
-        <div class="row col-12">
+        <div >
+            <form>
+                <h4 class="newPower">New Super Power</h4>
+                <div class="input-group">
 
-        <input type="text" class="form-control message-box col-8" id="message-input" readonly>
-        <div class="btn-group col-4">
-            <button type="button" class="btn btn-Secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Choose a Power
-            </button>
-            <div class="dropdown-menu" >
-                <ul th:each="power :${allPowers}">
-                    <li>
-                    <a class="dropdown-item power" th:value= "${power.type}" th:text= "${power.type}" href="#"></a>
-                    </li>
-                </ul>
+                    <input type="text" class="form-control" id="addPower" placeholder="Description">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">Add</button>
+                    </div>
+                </div>
+            </form>
 
-            </div>
         </div>
+        <!--<div class="btn-group col-3">-->
+            <!--&lt;!&ndash;<div class="dropdown">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" class="btn btn-Secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&ndash;&gt;-->
+                    <!--&lt;!&ndash;Choose a Power&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="dropdown-menu"   >&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<a th:each="power :${allPowers}" class="power dropdown-item" th:value= "${power.id}" th:text= "${power.type}" href="#"></a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+        <!--</div>-->
+            <!--<input type="text" class="form-control message-box col-8" id="message-input" readonly>-->
         </div>
         <div class="row col-12">
-            <div th:each = "hero : ${heroesWithPower}">
-                <div class="col-3" th:text = "${hero.name}"></div>
+            <div id="icons">
+                <!--<h2 class="col-12">View a Super Power</h2>-->
             </div>
         </div>
     </div>
