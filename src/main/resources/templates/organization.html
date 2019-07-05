@@ -46,7 +46,7 @@
 <div class="container-full-width row">
     <div class="col-4">
 
-        <h3>All Locations</h3>
+        <h3>All Organizations</h3>
         <table class="table">
             <thead>
             <tr>
@@ -54,11 +54,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="location : ${locations}">
+            <tr th:each="organization : ${organizations}">
 
-                <td th:value= "${location.id}" class="team" th:text="${location.name}"></td>
-                <td> <a href="#" th:href="@{/HeroSighting/editlocation/update(id=${location.id})} " class="editIcon">Edit</a></td>
-                <td> <a href="#" th:href="@{/HeroSighting/location/delete(id=${location.id})}" class="deleteIcon">Delete</a></td>
+                <td th:value= "${organization.id}" class="team" th:text="${organization.name}"></td>
+                <td> <a href="#" th:href="@{/HeroSighting/editorganization/update(id=${organization.id})} " class="editIcon">Edit</a></td>
+                <td> <a href="#" th:href="@{/HeroSighting/organization/delete(id=${organization.id})}" class="deleteIcon">Delete</a></td>
             </tr>
             </tbody>
         </table>
@@ -71,40 +71,53 @@
             <!-- Example single danger button -->
             <div >
                 <form method="post">
-                    <h4 >Add Location</h4>
+                    <h4 class="newOrganization">Add Organization</h4>
 
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter location Name">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
 
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input type="text" class="form-control" id="description" name="description"  placeholder="Location description">
+                        <input type="text" class="form-control" id="description" name="description"  placeholder="Organization description">
                     </div>
-                    <div class="form-group">
-                        <label for="description">Address</label>
+                    <!--<div class="">-->
+                    <!--<div class="">-->
+                    <!--<button th:each="power :${allPowers}" onclick="" class="powerChoice btn-danger col-4" th:value= "${power.id}" th:text= "${power.type}" href="#"></button>-->
 
-                        <input type="text"  class="form-control" id="address" name="address"  placeholder="Enter Address">
-                    </div>
-                    <div class="form-group">
-                        <label for="latitude">Latitude</label>
-                        <input id="latitude" type="text" class="form-control" name="latitude" placeholder="Enter Latitude"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="longitude">Longitude</label>
-                        <input id="longitude" type="text" class="form-control" name="longitude" placeholder="Enter Longitude"/>
-                    </div>
+                    <!--</div>-->
 
+                    <!--</div>-->
                     <div class="form-group row">
-                        <label for="map" class="col-3 col-form-label">
+                        <label for="location" class="col-3 col-form-label">
                             Headquarters</label>
-                        <div class="col-9" id="map">
+                        <div class="col-9">
+                            <select id="location" name="location"
+                                    class="form-control" placeholder="Location" >
+                                <option selected>Choose a Location</option>
+                                <option
 
+                                        th:each="location : ${locations}"
+                                        th:value="${location.id}"
+                                        th:text="${location.name}">
+                                   </option>
+                            </select>
+                        </div>
+                        <label for="members" class="col-3 col-form-label">
+                            Super Heroes</label>
+                        <div class="col-9">
+                            <select multiple id="members" name="member"
+                                    class="form-control" >
+                                <option th:each="member : ${members}"
+                                        th:value="${member.id}"
+                                        th:text="${member.name}"
+                                >
+                                    Super Heroes</option>
+                            </select>
                         </div>
 
-
-                        <button type="submit" class="btn btn-primary">Add location</button>
+                        <button type="submit" class="btn btn-primary">Add Organization</button>
                     </div>
 
                     <!--<div id="popUp" style="display:none">-->
@@ -112,11 +125,22 @@
                     <!--</div>-->
                     <!--<button type="button" id="powerChoice" onclick="openNav()">Choose Powers</button>-->
                 </form>
-                <ul id="list">
 
-                </ul>
             </div>
+            <!--<div class="btn-group col-3">-->
+            <!--&lt;!&ndash;<div class="dropdown">&ndash;&gt;-->
+            <!--&lt;!&ndash;<button type="button" class="btn btn-Secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;Choose a Power&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="dropdown-menu"   >&ndash;&gt;-->
 
+            <!--&lt;!&ndash;<a th:each="power :${allPowers}" class="power dropdown-item" th:value= "${power.id}" th:text= "${power.type}" href="#"></a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+            <!--</div>-->
+            <!--<input type="text" class="form-control message-box col-8" id="message-input" readonly>-->
         </div>
         <div class="row col-12">
             <div id="icons">
@@ -129,9 +153,7 @@
 
 
 </div>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnc30-BQJboig9uJgABBjg3AwoNgO6Rb0-tb54pSeK0&callback=initMap">
-</script>
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>

@@ -1,0 +1,157 @@
+
+<html xmlns:th="http//www.thymeleaf.org" xmlns ="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://kit.fontawesome.com/c50d94bbae.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link th:href="@{/css/main.css}" href="../static/css/main.css"
+          rel="stylesheet" type="text/css" media="screen"/>
+
+    <title>Super Heroes</title>
+</head>
+<body>
+<h1 id="superPowerHeader" class="jumbotron text-light bg-dark text-center">Super Powers</h1>
+<header>
+    <ul class="navbar navbar-expand-lg navbar-dark bg-dark nav-fill nav-pills">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/HeroSighting/sighting/display">Sightings</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/HeroSighting/organization/display">Organizations</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/HeroSighting/superhero/display">Super Heroes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/HeroSighting/location/display">Locations</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/HeroSighting/superpower/display">Super Powers</a>
+        </li>
+
+    </ul>
+
+
+    </div>
+    </nav>
+</header>
+<div class="container-full-width row">
+    <div class="col-4">
+
+        <h3>All Super Heroes</h3>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="hero : ${allHeroes}" class="hero">
+
+                <td th:value= "${hero.id}" class="powerGroup" th:text="${hero.name}"></td>
+                <td> <a href="#" th:href="@{/HeroSighting/editsuperhero/update(id=${hero.id})} " class="editIcon">Edit</a></td>
+                <td> <a href="#" th:href="@{/HeroSighting/superhero/delete(id=${hero.id})}" class="deleteIcon">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <!---->
+    </div>
+    <div class="col-8">
+        <div class="col-8">
+
+            <!--<p th:text = "${singlepower}"></p>-->
+            <!-- Example single danger button -->
+            <div >
+                <form method="post">
+                    <h4 class="newPower">Add New Hero</h4>
+                    <div class="custom-control custom-radio">
+                        <div class="radio">
+                        <input type="radio" value="false" class=" custom-control-input" id="hero" name="hero" checked>
+                        <label class="custom-control-label" for="hero">Hero</label>
+                        </div>
+                        <div class="radio">
+                        <input type="radio" value="true" class=" custom-control-input" id="villain" name="villain">
+                        <label class="custom-control-label" for="villain">Villain</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Name">
+                            <small id="coolName" class="form-text text-muted">Be Sure to make it a cool one</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="herodescription">Description</label>
+                        <input type="text" class="form-control" id="heroDescription" name="herodescription" aria-describedby="descriptionHelp" placeholder="Describe your hero">
+                    </div>
+                        <!--<div class="">-->
+                            <!--<div class="">-->
+                                <!--<button th:each="power :${allPowers}" onclick="" class="powerChoice btn-danger col-4" th:value= "${power.id}" th:text= "${power.type}" href="#"></button>-->
+
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    <div class="form-group row">
+                        <label for="powers" class="col-3 col-form-label">
+                            Super Powers</label>
+                        <div class="col-9">
+                            <select multiple id="powers" name="superpower"
+                                    class="form-control" >
+                                <option th:each="power : ${allPowers}"
+                                        th:value="${power.id}"
+                                        th:text="${power.type}"
+                                        >
+                                    Super Power Type</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Super Hero</button>
+                    </div>
+
+                        <!--<div id="popUp" style="display:none">-->
+                            <!--<input type="checkbox" th:each="power :${allPowers}" class="power" th:value= "${power.id}" th:text= "${power.type}" href="#">-->
+                        <!--</div>-->
+                        <!--<button type="button" id="powerChoice" onclick="openNav()">Choose Powers</button>-->
+                </form>
+                    <ul id="list">
+
+                    </ul>
+            </div>
+            <!--<div class="btn-group col-3">-->
+            <!--&lt;!&ndash;<div class="dropdown">&ndash;&gt;-->
+            <!--&lt;!&ndash;<button type="button" class="btn btn-Secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;Choose a Power&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="dropdown-menu"   >&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<a th:each="power :${allPowers}" class="power dropdown-item" th:value= "${power.id}" th:text= "${power.type}" href="#"></a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+            <!--</div>-->
+            <!--<input type="text" class="form-control message-box col-8" id="message-input" readonly>-->
+        </div>
+        <div class="row col-12">
+            <div id="icons">
+                <!--<h2 class="col-12">View a Super Power</h2>-->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/src/hero.js}"></script>
+</body>
+</html>
