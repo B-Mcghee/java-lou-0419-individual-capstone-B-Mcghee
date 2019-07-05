@@ -62,7 +62,6 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
         final String UPDATE_A_LOCATION = "UPDATE Locations SET name = ?,description = ?,address = ?,latitude = ?,longitude = ? WHERE id = ?";
         heySQL.update(UPDATE_A_LOCATION, location.getName(), location.getDescription(), location.getAddress(), location.getLatitude(), location.getLongitude(), location.getId());
 
-
     }
 
     @Override
@@ -119,8 +118,8 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
 //    @Transactional
     public Organization addOrganization(Organization organization) {
         final String INSERT_INTO_ORGANIZATIONS = "INSERT INTO `Organization`(name,description, locationid) VALUES(?,?,?) ";
-        Location location = getLocationIdforOrganization(organization.getId());
-        heySQL.update(INSERT_INTO_ORGANIZATIONS, organization.getName(), organization.getDescription(), location.getId());
+//        Location location = getLocationIdforOrganization(organization.getId());
+        heySQL.update(INSERT_INTO_ORGANIZATIONS, organization.getName(), organization.getDescription(), organization.getLocation().getId());
 
         int newId = heySQL.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         organization.setId(newId);
@@ -455,10 +454,13 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
         final String DELETE_FROM_SUPERPOWERS = "DELETE FROM superpowers WHERE id = ?";
         heySQL.update(DELETE_FROM_SUPERPOWERS, id);
     }
-    public List<SuperHero> getSuperHeroWithPower(int id) {
+    public List<SuperHero> getSuperHeroWithSpecificPower(int id) {
         final String GET_POWERS_WITH_ID = "SELECT superheroes.* from superheroes " +
                 "JOIN heropowers ON heropowers.heroid = superheroes.id where heropowers.powersid = ?";
         List<SuperHero> heroes = heySQL.query(GET_POWERS_WITH_ID, new SuperHeroMapper(), id);
+        for (SuperHero hero: heroes) {
+                hero.setHeroPowers(getSuperHeroPowers(hero.getId()));
+        }
 
         return heroes;
 
