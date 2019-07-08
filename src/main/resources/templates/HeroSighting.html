@@ -6,23 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/c50d94bbae.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link th:href="@{/css/main.css}" href="../static/css/main.css"
+          rel="stylesheet" type="text/css" media="screen"/>
 
-    <title>Hero Sighting</title>
+    <title>Hero Sightings</title>
 </head>
-<body>
-<h1></h1>
+<body  >
+<div class="container-full-width row" id="homeBody">
+    <div class="color-overlay"></div>
+
+    <div class="headings col-5">
+        <ul>
+            <li class="headingTitle">
+                <a href="/HeroSighting/sighting/display"><i class="fas fa-chevron-right caret" style="display:none"></i><span class=" home-title home-sighting">Sighting</span></a></li>
+
+            <li class="headingTitle">
+                <a href="/HeroSighting/superhero/display"><i class="fas fa-chevron-right caret" style="display:none"></i><span class="home-title home-hero">Super Heroes</span></a></li>
+
+            <li class="headingTitle">
+                <a href="/HeroSighting/organization/display"><i class="fas fa-chevron-right caret" style="display:none"></i><span class="home-title home-organization">Organizations</span></a></li>
+
+            <li class="headingTitle">
+                <a href="/HeroSighting/location/display"><i class="fas fa-chevron-right caret" style="display:none"></i><span class="home-title home-location">Locations</span></a></li>
+            <li class="headingTitle">
+                <a href="/HeroSighting/superpower/display"><i class="fas fa-chevron-right caret" style="display:none"></i><span class="home-title home-power">Super Powers</span></a></li>
+        </ul>
+
+    </div>
+    <div class=" recent-sighting-header col-2">
+        <h2>Recent Sightings</h2>
+    </div>
+    <div class="list-of-sightings col-4">
+        <ul>
+            <li class="sighting" th:each = "sight: ${sightings}">
+                <div class="sighting-ticker">
+                <a href="#" th:text="${#temporals.format(sight.date, 'MM-dd-yyyy')}"></a>
+                    <p th:text ="${sight.location.name}"></p>
+                    <!--<p  th:each = " hero : ${sight.heroes}" th:text="${hero.name}"></p>-->
+                </div>
 
 
+            </li>
+        </ul>
+    </div>
+</div>
 
-
-
-
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+
+<script type="text/javascript" th:src="@{/src/hero.js}"></script>
 </body>
 </html>

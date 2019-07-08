@@ -23,14 +23,15 @@ public class SuperHeroController {
 
     Map<Integer, SuperPower> allSuperPowers = new HashMap<>();
     Map<Integer, SuperHero> allSuperHeroes = new HashMap<>();
-    @GetMapping()
-    public String mainPage(Model model){
 
-        model.addAttribute("greeting", "Have you seen a Super Hero??");
+    @GetMapping("/home")
+    public String landingPage(Model model){
+        List<Sighting> sightings = heroDao.numOfSightings(10);
+
+        model.addAttribute("sightings", sightings);
 
         return "HeroSighting";
     }
-
     @GetMapping("/superpower/display")
     public String viewAllPowers(Model model){
         List<SuperPower> listOfPowers = heroDao.getAllSuperPower();
@@ -42,14 +43,7 @@ public class SuperHeroController {
 
         return "superpower";
     }
-//    @GetMapping()
-//    public String landingPage(Model model){
-//        List<Sighting> sightings = heroDao.getAllSightings();
-//
-//        model.addAttribute("sightings", sightings);
-//
-//        return "HeroSighting";
-//    }
+
 
     @PostMapping("/superpower/display")
     public String createNewPower( HttpServletRequest request){
@@ -124,7 +118,7 @@ public class SuperHeroController {
 
         model.addAttribute("allPowers", allPowers);
 
-        return "superpower";
+        return "redirect:/HeroSighting/superpower/display";
     }
 
     //    @GetMapping("/superpower/delete")
@@ -189,7 +183,7 @@ public String viewAllSuperHeroes(Model model){
             hero.setVillian(false);
         }
 
-        String[] powers = request.getParameterValues("superPowerId");
+        String[] powers = request.getParameterValues("superpower");
         List<SuperPower> retrievedPowers = new ArrayList<>();
         for (String i: powers){
             retrievedPowers.add(heroDao.getSuperPower(Integer.parseInt(i)));

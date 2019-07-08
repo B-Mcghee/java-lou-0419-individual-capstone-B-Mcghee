@@ -1,5 +1,47 @@
 
 
+
+//
+//$(".headingTitle").mouseover(function(){
+//    $(".caret").css("display","inline-block");
+//});
+//
+//$(".headingTitle").mouseout(function(){
+//    $(".caret").css("display","none");
+//});
+//
+//$(".home-sighting").mouseover(function(){
+//    $('#homeBody').css("background-image", "url(../img/SuperHero2.jpg)");
+//});
+//$(".home-sighting").mouseout(function(){
+//    $('#homeBody').css("background-image", "url(../img/SuperHero3.jpg)");
+//})
+
+$(".headingTitle").hover(function(){
+    var number = Math.floor((Math.random() * 12) + 1);
+    $('#homeBody').css("background-image", "url(../img/SuperHero"+number+".jpg)");
+
+});
+
+
+//$(".caret").mouseover(function(){
+//  $(".caret").css("background-color", "yellow");
+//});
+
+
+$(".edit").click(function(){
+
+  $(".editing").slideToggle(500);
+});
+
+
+//function opacity(num){
+//num = 0;
+//for(i = 0; i <20; i++){
+//        num+= 0.05;
+// }
+//return num
+//}
 $(".power").click(function(){
        $("#icons").html("");
     var message = $(this).text();
@@ -56,7 +98,7 @@ function createName(message){
         return outerHtag;
 }
 
-                $('#datetimepicker1').datetimepicker();
+
 
 //function initMap() {
 //  // The location of Uluru
@@ -112,5 +154,6 @@ function createName(message){
 //                console.log("something went wrong");
 //             }
 //    });
+
 
 

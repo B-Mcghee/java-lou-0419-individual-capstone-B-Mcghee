@@ -13,13 +13,14 @@
 
     <title>Hero Sightings</title>
 </head>
-<body>
-<h1 id="superPowerHeader" class="jumbotron text-light bg-dark text-center">Organizations</h1>
-<header>
+<body class="background-image">
+<div class="body-container">
+<h1 id="superPowerHeader" class="text-light bg-dark text-center">Sightings</h1>
+<header class="navigation">
 
     <ul class="navbar navbar-expand-lg navbar-dark bg-dark nav-fill nav-pills">
         <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/HeroSighting/home">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/HeroSighting/sighting/display">Sightings</a>
@@ -40,10 +41,9 @@
     </ul>
 
 
-    </div>
-    </nav>
+
 </header>
-<div class="container-full-width row">
+<div class=" container-full-width row">
     <div class="col-4">
 
         <h3>All Sightings</h3>
@@ -57,7 +57,7 @@
             <tr th:each="sight : ${sightings}">
 
                 <td th:value= "${sight.id}" class="sight" th:text="${sight.location.name}"></td>
-                <td th:value= "${sight.id}" class="sight" th:text="${#temporals.format(sight.date, 'M/dd/yy')}"></td>
+                <td th:value= "${sight.id}" class="sight" th:text="${#temporals.format(sight.date, 'MM/dd/yy')}"></td>
                 <td> <a href="#" th:href="@{/HeroSighting/editsighting/update(id=${sight.id})} " class="editIcon">Edit</a></td>
                 <td> <a href="#" th:href="@{/HeroSighting/sighting/delete(id=${sight.id})}" class="deleteIcon">Delete</a></td>
             </tr>
@@ -141,6 +141,7 @@
         </div>
 
     </div>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>

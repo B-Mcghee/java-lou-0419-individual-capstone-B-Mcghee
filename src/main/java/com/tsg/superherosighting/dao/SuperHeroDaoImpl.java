@@ -271,6 +271,18 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
         return heroes;
     }
 
+
+    public List<Sighting> numOfSightings(int number) {
+        final String GET_ALL_SIGHTINGS = "SELECT * FROM SuperHeroSightingsDB.Sightings ORDER BY date DESC LIMIT "+ number;
+        List<Sighting> sightings = heySQL.query(GET_ALL_SIGHTINGS, new SightingMapper());
+
+        for (Sighting i : sightings) {
+            i.setLocation(getLocationForSighting(i.getId()));
+            i.setHeroes(getSuperHeroesForSightings(i.getId()));
+
+        }
+        return sightings;
+    }
     @Override
     public List<Sighting> getAllSightings() {
         final String GET_ALL_SIGHTINGS = "SELECT * FROM sightings";

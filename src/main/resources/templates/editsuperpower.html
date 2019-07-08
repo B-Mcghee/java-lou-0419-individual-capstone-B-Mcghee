@@ -13,13 +13,13 @@
 
     <title>Super Power Edit</title>
 </head>
-<body>
+<body class="background-image">
 <h1 id="superPowerHeader" class="jumbotron text-light bg-dark text-center">Super Powers</h1>
 <header>
 
     <ul class="navbar navbar-expand-lg navbar-dark bg-dark nav-fill nav-pills">
         <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/HeroSighting/home">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/HeroSighting/sighting/display/">Sightings</a>
@@ -57,8 +57,8 @@
             <tr th:each="power : ${allPowers}" >
 
                 <td th:value= "${power.id}" class="power" th:text="${power.type}"></td>
-                <td> <a href="#" th:href="@{/HeroSighting/editsuperhero/update(id=${hero.id})}" class="editIcon">Edit</a></td>
-                <td> <a href="#" th:href="@{/HeroSighting/superhero/delete(id=${hero.id})}" class="deleteIcon">Delete</a></td>
+                <td> <a href="#" th:href="@{/HeroSighting/editsuperpower/update(id=${power.id})}" class="editIcon">Edit</a></td>
+                <td> <a href="#" th:href="@{/HeroSighting/superpower/delete(id=${power.id})}" class="deleteIcon">Delete</a></td>
             </tr>
             </tbody>
         </table>
@@ -73,8 +73,8 @@
                     <h4 class="newPower">Edit Super Power</h4>
                     <div class="input-group">
 
-                        <input type="text" class="form-control" id="addPower" name="type" th:value="${power.type}"/>
-                        <input type="hidden" name="id" th:value="${power.id}"/>
+                        <input type="text" class="form-control" id="addPower" name="type" th:value="${power.type}">
+                        <input type="hidden" name="id" th:value="${power.id}">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">Update</button>
                         </div>
