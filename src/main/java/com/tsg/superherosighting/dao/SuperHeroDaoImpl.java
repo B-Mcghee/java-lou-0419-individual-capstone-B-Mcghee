@@ -68,7 +68,7 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
     @Transactional
     public void removeLocation(int id) {
 
-        final String DELETE_HEROSIGHTING = "DELETE FROM herosightings.sightingid = ?";
+        final String DELETE_HEROSIGHTING = "DELETE FROM herosightings WHERE herosightings.sightingid = ?";
 
         for (Sighting i : sightingsForLocation(id)){
             heySQL.update(DELETE_HEROSIGHTING,i.getId() );

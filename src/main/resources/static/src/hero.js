@@ -1,6 +1,4 @@
 
-
-
 //
 //$(".headingTitle").mouseover(function(){
 //    $(".caret").css("display","inline-block");
@@ -27,12 +25,14 @@ $(".headingTitle").hover(function(){
 //$(".caret").mouseover(function(){
 //  $(".caret").css("background-color", "yellow");
 //});
+$(".editing").hide();
 
+$(".location-title").hover(function(){
+   $(this).find(".editing").show();
 
-$(".edit").click(function(){
-
-  $(".editing").slideToggle(500);
 });
+
+
 
 
 //function opacity(num){

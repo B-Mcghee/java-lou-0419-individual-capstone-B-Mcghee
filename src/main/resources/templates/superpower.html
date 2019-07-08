@@ -77,12 +77,12 @@
                 <div d-flex justify-content-center col-6>
                     <h5 th:value= "${power.id}" class="power edit" th:text="${power.type}"></h5>
                 </div>
+
                 <div>
                     <button class="col-5 btn-success editIcon editing"><a href="#" th:href="@{/HeroSighting/editsuperpower/update(id=${power.id})}" >Edit</a></button>
                     <button class="col-5 btn-danger deleteIcon editing"><a href="#" th:href="@{/HeroSighting/superpower/delete(id=${power.id})}" >Delete</a></button>
 
                 </div>
-
             </div>
 
 
