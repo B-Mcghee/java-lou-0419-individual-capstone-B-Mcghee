@@ -45,7 +45,7 @@ $(".location-title").hover(function(){
 $(".power").click(function(){
        $("#icons").html("");
     var message = $(this).text();
-    $("#addPower").val(message).css('color','black').css('font-weight','normal');
+    $("#addPower").val(message).css('color','#fff').css('font-weight','normal');
 
       var id = $(this).attr("value");
 
@@ -92,11 +92,17 @@ function createName(message){
     //       <h2 class="col-12">View a Super Power</h2>
         var outerHtag = $("<h2>");
         outerHtag.attr({
-            "class":"col-12"
+            "class":"col-12 abilities"
         });
         outerHtag.html(message);
         return outerHtag;
 }
+$('select[multiple]').multiselect({
+    columns: 3,
+    placeholder: 'Select options'
+});
+
+
 
 
 

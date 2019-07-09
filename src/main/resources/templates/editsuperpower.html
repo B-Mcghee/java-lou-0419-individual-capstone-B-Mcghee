@@ -6,99 +6,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Righteous|Sarabun|Ubuntu|Ubuntu+Condensed&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/c50d94bbae.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
     <link th:href="@{/css/main.css}" href="../static/css/main.css"
           rel="stylesheet" type="text/css" media="screen"/>
 
-    <title>Super Power Edit</title>
+    <title>Hero Sightings</title>
 </head>
 <body class="background-image">
-<h1 id="superPowerHeader" class="jumbotron text-light bg-dark text-center">Super Powers</h1>
-<header>
 
-    <ul class="navbar navbar-expand-lg navbar-dark bg-dark nav-fill nav-pills">
-        <li class="nav-item active">
-            <a class="nav-link" href="/HeroSighting/home">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/sighting/display/">Sightings</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/organization/display/">Organizations</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/superhero/display">Super Heroes</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/location/display/">Locations</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/superpower/display">Super Powers</a>
-        </li>
+<ul class="navbar navbar-expand-lg  nav-fill nav-pills col-md-12 navigation-bar">
+    <li class="nav-item active navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/home">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/sighting/display">Sightings</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/organization/display">Organizations</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/superhero/display">Super Heroes</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/location/display">Locations</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/superpower/display">Super Powers</a>
+    </li>
 
-    </ul>
+</ul>
+<h1 id="" class="title-headers text-center">Super Powers</h1>
+<div class="body-container">
 
 
-    </div>
-    </nav>
-</header>
-<div class="container-full-width row">
-    <div class="col-4">
+        <div class="container-full-width row">
+            <div class="color-overlay-pages"></div>
+            <div class="col-4">
 
-        <h3>All Super Powers</h3>
-        <table class="table">
-            <thead>
-            <tr>
+                <h3 class="location-header">All Super Powers</h3>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="power : ${allPowers}" >
+                <div th:each="power : ${allPowers}">
+                    <div class="col-12 location-title">
+                        <h5 th:value= "${power.id}" class="power edit" th:text="${power.type}"></h5>
 
-                <td th:value= "${power.id}" class="power" th:text="${power.type}"></td>
-                <td> <a href="#" th:href="@{/HeroSighting/editsuperpower/update(id=${power.id})}" class="editIcon">Edit</a></td>
-                <td> <a href="#" th:href="@{/HeroSighting/superpower/delete(id=${power.id})}" class="deleteIcon">Delete</a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-8">
-        <div class="col-8">
 
-            <!--<p th:text = "${singlepower}"></p>-->
-            <!-- Example single danger button -->
-            <div >
-                <form method="post">
-                    <h4 class="newPower">Edit Super Power</h4>
-                    <div class="input-group">
+                        <div class="buttons">
+                            <button class="col-5 btn-success editIcon editing"><a href="#" th:href="@{/HeroSighting/editsuperpower/update(id=${power.id})}" >Edit</a></button>
+                            <button class="col-5 btn-danger deleteIcon editing"><a href="#" th:href="@{/HeroSighting/superpower/delete(id=${power.id})}" >Delete</a></button>
 
-                        <input type="text" class="form-control" id="addPower" name="type" th:value="${power.type}">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="col-12">
+                    <div >
+                <form class="form-background" method="post">
+                    <h4 class="page-title">Edit Super Power</h4>
+                    <div class="form-group">
+
+                        <input type="text" class="input-style" id="addPower" name="type" th:value="${power.type}">
                         <input type="hidden" name="id" th:value="${power.id}">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">Update</button>
+                        <div>
+                            <button class="location-button" type="submit">Update Power</button>
                         </div>
                     </div>
                 </form>
 
             </div>
-            <!--<div class="btn-group col-3">-->
-            <!--&lt;!&ndash;<div class="dropdown">&ndash;&gt;-->
-            <!--&lt;!&ndash;<button type="button" class="btn btn-Secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;Choose a Power&ndash;&gt;-->
-            <!--&lt;!&ndash;</button>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="dropdown-menu"   >&ndash;&gt;-->
 
-            <!--&lt;!&ndash;<a th:each="power :${allPowers}" class="power dropdown-item" th:value= "${power.id}" th:text= "${power.type}" href="#"></a>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-
-            <!--</div>-->
-            <!--<input type="text" class="form-control message-box col-8" id="message-input" readonly>-->
         </div>
         <div class="row col-12">
-            <div id="icons">
+            <div id="icons" class="row">
                 <!--<h2 class="col-12">View a Super Power</h2>-->
             </div>
         </div>
