@@ -1,4 +1,5 @@
 
+
 <html xmlns:th="http//www.thymeleaf.org" xmlns ="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
@@ -6,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <script src="https://unpkg.com/vue@2.6.10/dist/vue.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Righteous|Sarabun|Ubuntu|Ubuntu+Condensed&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/c50d94bbae.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/flatly/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
     <link th:href="@{/css/main.css}" href="../static/css/main.css"
           rel="stylesheet" type="text/css" media="screen"/>
@@ -14,80 +18,81 @@
     <title>Hero Sightings</title>
 </head>
 <body class="background-image">
-<h1 id="superPowerHeader" class="jumbotron text-light bg-dark text-center">Organizations</h1>
-<header>
 
-    <ul class="navbar navbar-expand-lg navbar-dark bg-dark nav-fill nav-pills">
-        <li class="nav-item active">
-            <a class="nav-link" href="/HeroSighting/home">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/sighting/display">Sightings</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/organization/display">Organizations</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/superhero/display">Super Heroes</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/location/display">Locations</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/superpower/display">Super Powers</a>
-        </li>
+<ul class="navbar navbar-expand-lg  nav-fill nav-pills col-md-12 navigation-bar">
+    <li class="nav-item active navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/home">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/sighting/display">Sightings</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/organization/display">Organizations</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/superhero/display">Super Heroes</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/location/display">Locations</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/superpower/display">Super Powers</a>
+    </li>
 
-    </ul>
+</ul>
+<h1 id="" class="title-headers text-center">Organizations</h1>
+<div class="body-container">
 
 
-    </div>
-    </nav>
-</header>
-<div class="container-full-width row">
-    <div class="col-4">
 
-        <h3>All Organizations</h3>
-        <table class="table">
-            <thead>
-            <tr>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="organization : ${organizations}">
 
-                <td th:value= "${organization.id}" class="team" th:text="${organization.name}"></td>
-                <td> <a href="#" th:href="@{/HeroSighting/editorganization/update(id=${organization.id})} " class="editIcon">Edit</a></td>
-                <td> <a href="#" th:href="@{/HeroSighting/organization/delete(id=${organization.id})}" class="deleteIcon">Delete</a></td>
-            </tr>
-            </tbody>
-        </table>
-        <!---->
-    </div>
-    <div class="col-8">
+
+
+
+
+    <div class="container-full-width row">
+        <div class="color-overlay-pages"></div>
+        <div class="col-4">
+
+            <h3 class="location-header">All Organizations</h3>
+            <div th:each="organization: ${organizations}">
+                <div class="col-12 location-title">
+                    <h5 th:value = "${organization.id}" class="power edit" th:text="${organization.name}"></h5>
+                    <div class="buttons">
+                        <button class="col-5 btn-success editIcon editing"><a href="#" th:href="@{/HeroSighting/editorganization/update(id=${organization.id})}" >Edit</a></button>
+                        <button class="col-5 btn-danger deleteIcon editing"><a href="#" th:href="@{/HeroSighting/organization/delete(id=${organization.id})}" >Delete</a></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <div class="col-8">
+            <div class="col-12">
 
-            <!--<p th:text = "${singlepower}"></p>-->
-            <!-- Example single danger button -->
-            <div >
-                <form method="post">
-                    <h4 class="newOrganization">Edit Organzation</h4>
+
+                <div >
+
+                <form class="form-background" method="post">
+                    <h4 class="page-title">Edit Organzation</h4>
 
                     <div class="form-group">
-                        <label for="name">Edit Name</label>
-                        <input type="text" class="form-control" id="name" name="name" th:value = "${organization.name}">
+
+                        <input type="text" class="input-style" id="name" name="name" th:value = "${organization.name}">
 
                     </div>
                     <div class="form-group">
-                        <label for="description">Edit Description</label>
-                        <input type="text" class="form-control" id="description" name="description"  th:value ="${organization.description}">
+
+                        <input type="text" class="input-style" id="description" name="description"  th:value ="${organization.description}">
                     </div>
+
+                    <label for="location" class="superpower-label">
+                        Edit Headquarters</label>
                     <div class="form-group row">
-                        <label for="location" class="col-3 col-form-label">
-                            Edit Headquarters</label>
-                        <div class="col-9">
+
+                        <div class="col-7">
                             <select id="location" name="location"
-                                    class="form-control" >
+                                    class="superpower-list" >
                                 <option th:each="location : ${locations}"
                                         th:value="${location.id}"
                                         th:text="${location.name}"
@@ -95,11 +100,13 @@
                                     location</option>
                             </select>
                         </div>
-                        <label for="members" class="col-3 col-form-label">
+                    </div>
+                        <div class="form-group row">
+                        <label for="members" class=" col-12 superpower-label">
                             Super Heroes</label>
-                        <div class="col-9">
+                        <div class="col-7">
                             <select multiple id="members" name="member"
-                                    class="form-control" >
+                                    class="superpower-list" >
                                 <option th:each="member : ${members}"
                                         th:value="${member.id}"
                                         th:text="${member.name}"
@@ -108,26 +115,21 @@
                                     Edit Super Heroes</option>
                             </select>
                         </div>
-                        <input type="hidden" name="id" th:value = "${organization.id}">
-                        <button type="submit" class="btn btn-primary">Update Organization</button>
+                            <input type="hidden" name="id" th:value = "${organization.id}">
+                        </div>
+
+
+
+                    <div>
+                        <button type="submit" class=" location-button ">Update Organization</button>
+
                     </div>
 
-                    <!--<div id="popUp" style="display:none">-->
-                    <!--<input type="checkbox" th:each="power :${allPowers}" class="power" th:value= "${power.id}" th:text= "${power.type}" href="#">-->
-                    <!--</div>-->
-                    <!--<button type="button" id="powerChoice" onclick="openNav()">Choose Powers</button>-->
                 </form>
-                <ul id="list">
-
-                </ul>
             </div>
 
-        </div>
-        <div class="row col-12">
-            <div id="icons">
-                <!--<h2 class="col-12">View a Super Power</h2>-->
             </div>
-        </div>
+
     </div>
 
 </div>

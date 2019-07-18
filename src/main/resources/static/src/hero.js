@@ -1,19 +1,4 @@
 
-//
-//$(".headingTitle").mouseover(function(){
-//    $(".caret").css("display","inline-block");
-//});
-//
-//$(".headingTitle").mouseout(function(){
-//    $(".caret").css("display","none");
-//});
-//
-//$(".home-sighting").mouseover(function(){
-//    $('#homeBody').css("background-image", "url(../img/SuperHero2.jpg)");
-//});
-//$(".home-sighting").mouseout(function(){
-//    $('#homeBody').css("background-image", "url(../img/SuperHero3.jpg)");
-//})
 
 $(".headingTitle").hover(function(){
     var number = Math.floor((Math.random() * 12) + 1);
@@ -22,12 +7,13 @@ $(".headingTitle").hover(function(){
 });
 
 
-//$(".caret").mouseover(function(){
-//  $(".caret").css("background-color", "yellow");
-//});
+$(".headingTitle").mouseover(function(){
+    $(this).find(".caret").show();
+});
+
 $(".editing").hide();
 
-$(".location-title").hover(function(){
+$(".location-title").click(function(){
    $(this).find(".editing").show();
 
 });
@@ -35,14 +21,7 @@ $(".location-title").hover(function(){
 
 
 
-//function opacity(num){
-//num = 0;
-//for(i = 0; i <20; i++){
-//        num+= 0.05;
-// }
-//return num
-//}
-$(".power").click(function(){
+$(".super").click(function(){
        $("#icons").html("");
     var message = $(this).text();
     $("#addPower").val(message).css('color','#fff').css('font-weight','normal');
@@ -97,10 +76,7 @@ function createName(message){
         outerHtag.html(message);
         return outerHtag;
 }
-$('select[multiple]').multiselect({
-    columns: 3,
-    placeholder: 'Select options'
-});
+
 
 
 
@@ -127,39 +103,7 @@ $('select[multiple]').multiselect({
 //}
 
 //
-//<form>
-//                    <h4 class="newPower">Edit Super Power</h4>
-//                    <div class="input-group">
-//
-//                        <input type="text" class="form-control" id="addPower" placeholder="Description">
-//                        <div class="input-group-append">
-//                            <button class="btn btn-primary" type="button">Update</button>
-//                        </div>
-//                    </div>
-//                </form>
 
-//$("#delete").click(function(){
-//        var id = $(this).attr("value");
-//        $.get({
-//                url: '/HeroSighting/superpower/delete/id/'+id,
-//                success: function(heroes, status, xhr){
-//                        console.log(heroes);
-//                     },
-//                     error: function( ){
-//                        console.log("something went wrong");
-//                     }
-//            });
-//    })
-
-//$.get({
-//        url: '/HeroSighting/editsuperpower/update,
-//        success: function(heroes, status, xhr){
-//                console.log(heroes);
-//             },
-//             error: function( ){
-//                console.log("something went wrong");
-//             }
-//    });
 
 
 

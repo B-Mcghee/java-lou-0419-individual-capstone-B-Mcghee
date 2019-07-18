@@ -22,4 +22,12 @@ public class SuperHero {
         this.heroPowers.add(superPower);
     }
 
+    public boolean getIsVillian(){
+        return isVillian;
+    }
+
+    public boolean isVillian(){
+        return isVillian;
+    }
+
 }

@@ -5,15 +5,18 @@ import com.tsg.superherosighting.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Controller
 @RequestMapping("/HeroSighting")
@@ -21,8 +24,9 @@ public class SuperHeroController {
     @Autowired
     SuperHeroDaoImpl heroDao;
 
-    Map<Integer, SuperPower> allSuperPowers = new HashMap<>();
-    Map<Integer, SuperHero> allSuperHeroes = new HashMap<>();
+    Set<ConstraintViolation<Location>> locationViolations = new HashSet<>();
+
+
 
     @GetMapping("/home")
     public String landingPage(Model model){
@@ -30,7 +34,7 @@ public class SuperHeroController {
 
         model.addAttribute("sightings", sightings);
 
-        return "HeroSighting";
+        return "home";
     }
     @GetMapping("/superpower/display")
     public String viewAllPowers(Model model){
@@ -121,30 +125,6 @@ public class SuperHeroController {
         return "redirect:/HeroSighting/superpower/display";
     }
 
-    //    @GetMapping("/superpower/delete")
-//    public String deleteAPower( HttpServletRequest request, Model model){
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        heroDao.removeSuperPower(id);
-//
-//        for (SuperPower i: heroDao.getAllSuperPower()) {
-//            allSuperPowers.put(i.getId(), i);
-//        }
-//        model.addAttribute("allPowers", new ArrayList<>(allSuperPowers.values()));
-//
-//        return "redirect:/HeroSighting/superpower/display";
-//    }
-//    @GetMapping("/superpower/delete/id/{id}")
-//    public String deletePower(@PathVariable int id, Model model) {
-//
-//
-//        heroDao.removeSuperPower(id);
-//        for (SuperPower i: heroDao.getAllSuperPower()) {
-//            allSuperPowers.put(i.getId(), i);
-//        }
-//
-//        model.addAttribute("allPowers", new ArrayList<>(allSuperPowers.values()));
-//        return "redirect:/HeroSighting/superpower/display";
-//    }
 
 
 /**
@@ -200,7 +180,7 @@ public String viewAllSuperHeroes(Model model){
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        Boolean villain = Boolean.parseBoolean(request.getParameter("hero"));
+        Boolean villain = Boolean.parseBoolean(request.getParameter("villain"));
         String[] powers = request.getParameterValues("superpower");
         List<SuperPower> superPowers = new ArrayList<>();
         for (String i: powers){
@@ -382,14 +362,7 @@ public String viewAllSuperHeroes(Model model){
 
         List<Location> locations = heroDao.getAllLocations();
         model.addAttribute("locations", locations);
-//        List<SuperHero> members = heroDao.getAllSuperHeros();
-//        model.addAttribute("members", members);
-//
-//        List<Location> locations = heroDao.getAllLocations();
-//        model.addAttribute("locations", locations);
-//
-//        List<Organization> organizations = heroDao.getAllOrganizations();
-//        model.addAttribute("organizations", organizations);
+
 
         return "editlocation";
     }
@@ -414,15 +387,20 @@ public String viewAllSuperHeroes(Model model){
     }
 
     @PostMapping("/location/display")
-    public String addLocation(HttpServletRequest request){
+    public String addLocation(HttpServletRequest request, BindingResult result){
 
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String address = request.getParameter("address");
-        BigDecimal latitude = new BigDecimal(request.getParameter("latitude"));
-        BigDecimal longitude = new BigDecimal(request.getParameter("longitude"));
 
-
+        BigDecimal latitude;
+        BigDecimal longitude;
+        try{
+        latitude = new BigDecimal(request.getParameter("latitude"));
+         longitude = new BigDecimal(request.getParameter("longitude"));
+        }catch (NumberFormatException e){
+            return "redirect:/HeroSighting/location/display";
+        }
 
         Location location = new Location();
         location.setName(name);
@@ -430,7 +408,16 @@ public String viewAllSuperHeroes(Model model){
         location.setAddress(address);
         location.setLatitude(latitude);
         location.setLongitude(longitude);
-        heroDao.addLocation(location);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        locationViolations = validate.validate(location);
+
+        if(result.hasErrors()) {
+            return "location/display";
+        }
+        if(locationViolations.isEmpty()) {
+            heroDao.addLocation(location);
+        }
+
 
         return "redirect:/HeroSighting/location/display";
     }
@@ -488,8 +475,10 @@ public String viewAllSuperHeroes(Model model){
 
         model.addAttribute("sightings", sightings);
 
-        model.addAttribute("eventName", "FIFA 2018");
 
+
+        Sighting sighting = new Sighting();
+        model.addAttribute("sight", sighting);
         return "sighting";
 
 
@@ -504,9 +493,12 @@ public String viewAllSuperHeroes(Model model){
 
     @PostMapping("/sighting/display")
     public String addSighting(HttpServletRequest request){
+        String date = request.getParameter("date");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(date,formatter);
         String locationid = request.getParameter("location");
         Location location = heroDao.getLocation(Integer.parseInt(locationid));
-        String[] members = request.getParameterValues("member");
+        String[] members = request.getParameterValues("heroes");
 
 
         List<SuperHero> heroes = new ArrayList<>();
@@ -520,9 +512,35 @@ public String viewAllSuperHeroes(Model model){
 
         sighting.setHeroes(heroes);
         sighting.setLocation(location);
+        sighting.setDate(dateTime);
         heroDao.addSighting(sighting);
 
 
         return "redirect:/HeroSighting/sighting/display";
     }
+
+    @PostMapping("/editsighting/update")
+    public String updatesighting( HttpServletRequest request){
+        int id = Integer.parseInt(request.getParameter("id"));
+        String date = request.getParameter("datetime");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(date,formatter);
+        String locationid = request.getParameter("location");
+        Location location = heroDao.getLocation(Integer.parseInt(locationid));
+        String[] members = request.getParameterValues("member");
+
+
+        List<SuperHero> heroes = new ArrayList<>();
+        for (String i: members){
+            heroes.add(heroDao.getSuperHero(Integer.parseInt(i)));
+        }
+
+
+        Sighting sighting = new Sighting(id, location, dateTime, heroes);
+
+        heroDao.updateSighting(sighting);
+
+        return "redirect:/HeroSighting/sighting/display";
+    }
+
 }

@@ -107,7 +107,7 @@ public class TestSuperPower {
         List<SuperPower> allSuperPowers = heroDao.getAllSuperPower();
 
         assertNotNull("List should never be null", allSuperPowers);
-        assertEquals("should only have 4 organization in list",12 , allSuperPowers.size());
+        assertEquals("should only have 12  powers in list",12 , allSuperPowers.size());
         SuperPower testpower= heroDao.getSuperPower(power.getId());
         assertEquals("should equal each other", power,testpower );
 
@@ -122,7 +122,7 @@ public class TestSuperPower {
 
 
         List<SuperPower> allPowers = heroDao.getAllSuperPower();
-        assertTrue("List should contain hero", allPowers.contains(power));
+        assertTrue("List should contain superpower", allPowers.contains(power));
 
         SuperPower toEdit = heroDao.getSuperPower(power.getId());
         assertEquals("they should equal each other", power, toEdit);
@@ -130,14 +130,14 @@ public class TestSuperPower {
 
 
         power.setType("breathe under water");
-        assertNotEquals("hero should not equal each other after changes", power, toEdit);
+        assertNotEquals("power should not equal each other after changes", power, toEdit);
         heroDao.updateSuperPower(power);
 
         assertNotEquals(power, toEdit);
 
         toEdit = heroDao.getSuperPower(power.getId());
 
-        assertEquals("after updating organization they should equal each other", power, toEdit);
+        assertEquals("after updating power they should equal each other", power, toEdit);
     }
 
 
@@ -147,8 +147,8 @@ public class TestSuperPower {
         SuperPower power2 = testSuperPowers[0];
 
         List<SuperPower> allSuperPowers = heroDao.getAllSuperPower();
-        assertTrue("list should be contain both organizations",allSuperPowers.contains(power));
-        assertTrue("list should be contain both organizations",allSuperPowers.contains(power2));
+        assertTrue("list should be contain both powers",allSuperPowers.contains(power));
+        assertTrue("list should be contain both superpowers",allSuperPowers.contains(power2));
 
         SuperPower fromDao = heroDao.getSuperPower(power.getId());
 
@@ -157,8 +157,8 @@ public class TestSuperPower {
         heroDao.removeSuperPower(power.getId());
         allSuperPowers = heroDao.getAllSuperPower();
 
-        assertEquals("list should be contain only organization2",10,allSuperPowers.size());
-        assertTrue("list should be contain both organizations",allSuperPowers.contains(power2));
+        assertEquals("list should be contain only power2",10,allSuperPowers.size());
+        assertTrue("list should be contain both powers",allSuperPowers.contains(power2));
 
     }
 }

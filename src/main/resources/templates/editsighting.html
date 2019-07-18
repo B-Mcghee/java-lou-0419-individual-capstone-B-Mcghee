@@ -5,8 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS --><script src="https://unpkg.com/vue@2.6.10/dist/vue.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Righteous|Sarabun|Ubuntu|Ubuntu+Condensed&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/c50d94bbae.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/flatly/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
     <link th:href="@{/css/main.css}" href="../static/css/main.css"
           rel="stylesheet" type="text/css" media="screen"/>
@@ -14,71 +16,71 @@
     <title>Hero Sightings</title>
 </head>
 <body class="background-image">
-<h1 id="superPowerHeader" class="jumbotron text-light bg-dark text-center">Organizations</h1>
-<header>
 
-    <ul class="navbar navbar-expand-lg navbar-dark bg-dark nav-fill nav-pills">
-        <li class="nav-item active">
-            <a class="nav-link" href="/HeroSighting/home">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/sighting/display">Sightings</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/organization/display">Organizations</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/superhero/display">Super Heroes</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/location/display">Locations</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/HeroSighting/superpower/display">Super Powers</a>
-        </li>
+<ul class="navbar navbar-expand-lg  nav-fill nav-pills col-md-12 navigation-bar">
+    <li class="nav-item active navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/home">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/sighting/display">Sightings</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/organization/display">Organizations</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/superhero/display">Super Heroes</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/location/display">Locations</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/HeroSighting/superpower/display">Super Powers</a>
+    </li>
 
-    </ul>
+</ul>
+<h1 id="" class="title-headers text-center">Sighting</h1>
+<div class="body-container">
 
+    <div class="container-full-width row">
+        <div class="color-overlay-pages"></div>
+        <div class="col-4">
 
-    </div>
-    </nav>
-</header>
-<div class="container-full-width row">
-    <div class="col-4">
+            <h3 class="location-header">All Sightings</h3>
+            <div th:each="sight : ${sightings}">
+                <div class = "col-12 location-title">
+                    <div class="power edit">
+                        <h5 th:value= "${sight.id}" th:text="${sight.location.name}"></h5>
+                        <h6 th:value= "${sight.id}" class="sighting-lable" th:text="${#temporals.format(sight.date, 'MM/dd/yy')}"></h6>
 
-        <h3>All Sightings</h3>
-        <table class="table">
-            <thead>
-            <tr>
+                    </div>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="sight : ${sightings}">
+                    <div class="buttons">
+                        <button class="col-5 btn-success editIcon editing"><a href="#" th:href="@{/HeroSighting/editsighting/update(id=${sight.id})}" >Edit</a></button>
+                        <button class="col-5 btn-danger deleteIcon editing"><a href="#" th:href="@{/HeroSighting/sighting/delete(id=${sight.id})}" >Delete</a></button>
 
-                <td th:value= "${sight.id}" class="sight" th:text="${sight.location.name}"></td>
-                <td th:value= "${sight.id}" class="sight" th:text="${#temporals.format(sight.date, 'M/dd/yy')}"></td>
-                <td> <a href="#" th:href="@{/HeroSighting/editsighting/update(id=${sight.id})} " class="editIcon">Edit</a></td>
-                <td> <a href="#" th:href="@{/HeroSighting/sighting/delete(id=${sight.id})}" class="deleteIcon">Delete</a></td>
-            </tr>
-            </tbody>
-        </table>
-        <!---->
-    </div>
-    <div class="col-8">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
         <div class="col-8">
+            <div class="col-12">
 
-            <!--<p th:text = "${singlepower}"></p>-->
-            <!-- Example single danger button -->
-            <div >
-                <form method="post">
-                    <h4 class="newSight">Add Sighting</h4>
 
+                <div >
+                    <form  class="form-background" method="post" >
+                    <h4 class="page-title">Edit Sighting</h4>
+
+                        <div class="col-7 datetimepicker">
+                            <input type="datetime-local"  th:value = "${sighting.date}" name="datetime" id="datetimepicker" placeholder="enter date">
+                        </div>
                     <div class="form-group">
-                        <label for="location">Enter Location</label>
-                        <div class="col-9">
+                        <label for="location" class="superpower-label">
+                            Edit Location</label>
+                        <div class="col-7">
                             <select id="location" name="location"
-                                    class="form-control" placeholder="Location" >
+                                    class="superpower-list" placeholder="Location" >
                                 <option
                                         th:each="location : ${locations}"
                                         th:value="${location.id}"
@@ -87,13 +89,12 @@
                                 </option>
                             </select>
                         </div>
-                        <input size="16" type="text" value="2012-06-15 14:45" readonly class="form_datetime">
                     </div>
-                    <label for="members" class="col-3 col-form-label">
-                        Super Heroes</label>
-                    <div class="col-9">
+                    <label for="members" class="superpower-label">
+                        Edit Super Heroes</label>
+                    <div class="col-7">
                         <select multiple id="members" name="member"
-                                class="form-control" >
+                                class="superpower-list" >
                             <option th:each="member : ${members}"
                                     th:value="${member.id}"
                                     th:text="${member.name}"
@@ -101,47 +102,19 @@
                             >
                                 Super Heroes</option>
                         </select>
-                        <button type="submit" class="btn btn-primary">Add Sighting</button>
+
                     </div>
-                    <!--<div class="">-->
-                    <!--<div class="">-->
-                    <!--<button th:each="power :${allPowers}" onclick="" class="powerChoice btn-danger col-4" th:value= "${power.id}" th:text= "${power.type}" href="#"></button>-->
+                        <input type="hidden" th:value = "${sighting.id}" name="id">
+                        <div>
+                            <button type="submit" class=" location-button ">Update Sighting</button>
 
-                    <!--</div>-->
-
-                    <!--</div>-->
-
-
-
-
-
-                    <!--<div id="popUp" style="display:none">-->
-                    <!--<input type="checkbox" th:each="power :${allPowers}" class="power" th:value= "${power.id}" th:text= "${power.type}" href="#">-->
-                    <!--</div>-->
-                    <!--<button type="button" id="powerChoice" onclick="openNav()">Choose Powers</button>-->
+                        </div>
                 </form>
 
             </div>
-            <!--<div class="btn-group col-3">-->
-            <!--&lt;!&ndash;<div class="dropdown">&ndash;&gt;-->
-            <!--&lt;!&ndash;<button type="button" class="btn btn-Secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;Choose a Power&ndash;&gt;-->
-            <!--&lt;!&ndash;</button>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="dropdown-menu"   >&ndash;&gt;-->
 
-            <!--&lt;!&ndash;<a th:each="power :${allPowers}" class="power dropdown-item" th:value= "${power.id}" th:text= "${power.type}" href="#"></a>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-
-            <!--</div>-->
-            <!--<input type="text" class="form-control message-box col-8" id="message-input" readonly>-->
         </div>
-        <div class="row col-12">
-            <div id="icons">
-                <!--<h2 class="col-12">View a Super Power</h2>-->
-            </div>
-        </div>
+
     </div>
 
 </div>

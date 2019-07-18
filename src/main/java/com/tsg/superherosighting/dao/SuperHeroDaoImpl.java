@@ -80,13 +80,10 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
         }
 
 
-        final String DELETE_FROM_SIGHTING = "DELETE FROM Sightings WHERE locationid = ?";
-        final String DELETE_FROM_ORGANIZATIONS = "DELETE FROM Organization WHERE locationid = ?";
+
+        this.setLocationForOrganization(id);
+        this.setLocationForSighting(id);
         final String DELETE_FROM_LOCATIONS = "DELETE FROM Locations WHERE id = ?";
-
-
-        heySQL.update(DELETE_FROM_SIGHTING, id);
-        heySQL.update(DELETE_FROM_ORGANIZATIONS, id);
         heySQL.update(DELETE_FROM_LOCATIONS, id);
 
     }
@@ -102,7 +99,18 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
         return places;
     }
 
-
+    private void removeAllLocationsFromForeignKeys(int locationId) {
+        String REMOVE_LOCATION_FROM_KEYS = "DELETE FROM bloghash WHERE HashtagId = ?";
+        heySQL.update(REMOVE_LOCATION_FROM_KEYS, locationId);
+    }
+    private void setLocationForOrganization(int locationId) {
+        String UPDATE_LOCATION= "UPDATE Organization SET locationid = '-1' WHERE locationid = ?";
+        heySQL.update(UPDATE_LOCATION, locationId);
+    }
+    private void setLocationForSighting(int locationId) {
+        String UPDATE_LOCATION= "UPDATE Sightings SET locationid = '-1' WHERE locationid = ?";
+        heySQL.update(UPDATE_LOCATION, locationId);
+    }
 
     /**
      * ____    _____   _____          _   _ _____ ______      _______ _____ ____  _   _
@@ -221,7 +229,7 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
     public Sighting addSighting(Sighting sighting) {
         final String INSERT_SIGHTING = "INSERT INTO sightings(locationid, date) VALUES(?,?)";
 
-        heySQL.update(INSERT_SIGHTING, sighting.getLocation().getId(), Timestamp.valueOf(sighting.getDate()));
+        heySQL.update(INSERT_SIGHTING, sighting.getLocation().getId(), Timestamp.valueOf(sighting.getDate()).toLocalDateTime());
 
         int newId = heySQL.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
 
@@ -407,8 +415,8 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
         final String DELETE_SUPERHERO = "DELETE FROM superheroes  WHERE id = ?";
         heySQL.update(DELETE_MEMBERS, id);
         heySQL.update(DELETE_HEROPOWERS, id);
-        heySQL.update(DELETE_SUPERHERO, id);
         heySQL.update(DELETE_HEROSIGHTINGS, id);
+        heySQL.update(DELETE_SUPERHERO, id);
 
     }
 
