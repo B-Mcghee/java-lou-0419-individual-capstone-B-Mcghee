@@ -281,7 +281,7 @@ public class SuperHeroDaoImpl implements SuperHeroDao {
 
 
     public List<Sighting> numOfSightings(int number) {
-        final String GET_ALL_SIGHTINGS = "SELECT * FROM SuperHeroSightingsDB.Sightings ORDER BY date DESC LIMIT "+ number;
+        final String GET_ALL_SIGHTINGS = "SELECT * FROM Sightings ORDER BY date DESC LIMIT "+ number;
         List<Sighting> sightings = heySQL.query(GET_ALL_SIGHTINGS, new SightingMapper());
 
         for (Sighting i : sightings) {
