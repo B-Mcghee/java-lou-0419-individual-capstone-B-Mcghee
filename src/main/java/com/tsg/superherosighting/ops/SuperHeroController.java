@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
-@RequestMapping("/HeroSighting")
+// @RequestMapping("/HeroSighting")
 public class SuperHeroController {
     @Autowired
     SuperHeroDaoImpl heroDao;
@@ -28,7 +28,7 @@ public class SuperHeroController {
 
 
 
-    @GetMapping("/home")
+    @GetMapping({"/","/home"})
     public String landingPage(Model model){
         List<Sighting> sightings = heroDao.numOfSightings(10);
 
