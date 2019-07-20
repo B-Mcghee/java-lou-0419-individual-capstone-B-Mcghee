@@ -19,22 +19,22 @@
 
 <ul class="navbar navbar-expand-lg  nav-fill nav-pills col-md-12 navigation-bar">
     <li class="nav-item active navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/home">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/sighting/display">Sightings</a>
+        <a class="nav-link" href="/sighting/display">Sightings</a>
     </li>
     <li class="nav-item navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/organization/display">Organizations</a>
+        <a class="nav-link" href="/organization/display">Organizations</a>
     </li>
     <li class="nav-item navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/superhero/display">Super Heroes</a>
+        <a class="nav-link" href="/superhero/display">Super Heroes</a>
     </li>
     <li class="nav-item navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/location/display">Locations</a>
+        <a class="nav-link" href="/location/display">Locations</a>
     </li>
     <li class="nav-item navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/superpower/display">Super Powers</a>
+        <a class="nav-link" href="/superpower/display">Super Powers</a>
     </li>
 
 </ul>
@@ -58,8 +58,8 @@
                 <div class = "col-12 location-title">
                     <h5 th:value= "${location.id}" class=" power edit" th:text="${location.name}"></h5>
                     <div class="buttons">
-                        <button class="col-5 btn-success editIcon editing"><a href="#" th:href="@{/HeroSighting/editlocation/update(id=${location.id})}" >Edit</a></button>
-                        <button class="col-5 btn-danger deleteIcon editing"><a href="#" th:href="@{/HeroSighting/location/delete(id=${location.id})}" >Delete</a></button>
+                        <button class="col-5 btn-success editIcon editing"><a href="#" th:href="@{/editlocation/update(id=${location.id})}" >Edit</a></button>
+                        <button class="col-5 btn-danger deleteIcon editing"><a href="#" th:href="@{/location/delete(id=${location.id})}" >Delete</a></button>
 
                     </div>
                 </div>

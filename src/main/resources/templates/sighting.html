@@ -20,22 +20,22 @@
 
 <ul class="navbar navbar-expand-lg  nav-fill nav-pills col-md-12 navigation-bar">
     <li class="nav-item active navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/home">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/sighting/display">Sightings</a>
+        <a class="nav-link" href="/sighting/display">Sightings</a>
     </li>
     <li class="nav-item navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/organization/display">Organizations</a>
+        <a class="nav-link" href="/organization/display">Organizations</a>
     </li>
     <li class="nav-item navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/superhero/display">Super Heroes</a>
+        <a class="nav-link" href="/superhero/display">Super Heroes</a>
     </li>
     <li class="nav-item navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/location/display">Locations</a>
+        <a class="nav-link" href="/location/display">Locations</a>
     </li>
     <li class="nav-item navigation-tabs">
-        <a class="nav-link" href="/HeroSighting/superpower/display">Super Powers</a>
+        <a class="nav-link" href="/superpower/display">Super Powers</a>
     </li>
 
 </ul>
@@ -56,8 +56,8 @@
                     </div>
 
                     <div class="buttons">
-                        <button class="col-5 btn-success editIcon editing"><a href="#" th:href="@{/HeroSighting/editsighting/update(id=${sight.id})}" >Edit</a></button>
-                        <button class="col-5 btn-danger deleteIcon editing"><a href="#" th:href="@{/HeroSighting/sighting/delete(id=${sight.id})}" >Delete</a></button>
+                        <button class="col-5 btn-success editIcon editing"><a href="#" th:href="@{/editsighting/update(id=${sight.id})}" >Edit</a></button>
+                        <button class="col-5 btn-danger deleteIcon editing"><a href="#" th:href="@{/sighting/delete(id=${sight.id})}" >Delete</a></button>
 
                     </div>
                 </div>
@@ -70,7 +70,7 @@
 
 
             <div >
-                <form  th:action="@{/HeroSighting/sighting/display}" class="form-background" th:object="${sight}" method="post">
+                <form  th:action="@{/sighting/display}" class="form-background" th:object="${sight}" method="post">
                     <h4 class="page-title">Add Sighting</h4>
 
 
