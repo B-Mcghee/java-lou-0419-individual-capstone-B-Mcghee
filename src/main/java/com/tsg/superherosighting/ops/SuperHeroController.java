@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
-// @RequestMapping("/HeroSighting")
+// @RequestMapping("")
 public class SuperHeroController {
     @Autowired
     SuperHeroDaoImpl heroDao;
@@ -56,7 +56,7 @@ public class SuperHeroController {
         power.setType(description);
         heroDao.addSuperPower(power);
 
-        return "redirect:/HeroSighting/superpower/display";
+        return "redirect:/superpower/display";
     }
 
     @GetMapping("/superpower/get/id/{id}")@ResponseBody
@@ -110,7 +110,7 @@ public class SuperHeroController {
 
         heroDao.updateSuperPower(power);
 
-        return "redirect:/HeroSighting/superpower/display";
+        return "redirect:/superpower/display";
     }
 
 
@@ -122,7 +122,7 @@ public class SuperHeroController {
 
         model.addAttribute("allPowers", allPowers);
 
-        return "redirect:/HeroSighting/superpower/display";
+        return "redirect:/superpower/display";
     }
 
 
@@ -173,7 +173,7 @@ public String viewAllSuperHeroes(Model model){
         hero.setHeroPowers(retrievedPowers);
         heroDao.addSuperHero(hero);
 
-        return "redirect:/HeroSighting/superhero/display";
+        return "redirect:/superhero/display";
     }
     @PostMapping("/editsuperhero/update")
     public String editHero( HttpServletRequest request){
@@ -190,7 +190,7 @@ public String viewAllSuperHeroes(Model model){
 
         heroDao.updateSuperHero(hero);
 
-        return "redirect:/HeroSighting/superhero/display";
+        return "redirect:/superhero/display";
     }
 
     @GetMapping("/editsuperhero/update")
@@ -213,7 +213,7 @@ public String viewAllSuperHeroes(Model model){
         heroDao.removeSuperHero(id);
 
 
-        return "redirect:/HeroSighting/superhero/display";
+        return "redirect:/superhero/display";
     }
 //    @PostMapping("/editsuperhero/update")
 //    public String edithero( HttpServletRequest request){
@@ -225,7 +225,7 @@ public String viewAllSuperHeroes(Model model){
 //
 //        heroDao.updateSuperPower(power);
 //
-//        return "redirect:/HeroSighting/superpower/display";
+//        return "redirect:/superpower/display";
 //    }
 
 //    @GetMapping
@@ -285,7 +285,7 @@ public String viewAllSuperHeroes(Model model){
     @GetMapping("/organization/delete")
     public String deleteOrganization(Model model, Integer id){
         heroDao.removeOrganization(id);
-        return "redirect:/HeroSighting/organization/display";
+        return "redirect:/organization/display";
     }
 
     @PostMapping("/organization/display")
@@ -311,7 +311,7 @@ public String viewAllSuperHeroes(Model model){
         organization.setLocation(location);
         heroDao.addOrganization(organization);
 
-        return "redirect:/HeroSighting/organization/display";
+        return "redirect:/organization/display";
     }
 //
     @PostMapping("/editorganization/update")
@@ -334,7 +334,7 @@ public String viewAllSuperHeroes(Model model){
 
         heroDao.updateOrganization(organization);
 
-        return "redirect:/HeroSighting/organization/display";
+        return "redirect:/organization/display";
     }
 
     /**
@@ -383,7 +383,7 @@ public String viewAllSuperHeroes(Model model){
         Location location = new Location(id, name, description,address, latitude,longitude );
         heroDao.updateLocation(location);
 
-        return "redirect:/HeroSighting/location/display";
+        return "redirect:/location/display";
     }
 
     @PostMapping("/location/display")
@@ -399,7 +399,7 @@ public String viewAllSuperHeroes(Model model){
         latitude = new BigDecimal(request.getParameter("latitude"));
          longitude = new BigDecimal(request.getParameter("longitude"));
         }catch (NumberFormatException e){
-            return "redirect:/HeroSighting/location/display";
+            return "redirect:/location/display";
         }
 
         Location location = new Location();
@@ -419,14 +419,14 @@ public String viewAllSuperHeroes(Model model){
         }
 
 
-        return "redirect:/HeroSighting/location/display";
+        return "redirect:/location/display";
     }
 
     @GetMapping("/location/delete")
     public String deleteLocation(Model model, Integer id){
         heroDao.removeLocation(id);
 
-        return "redirect:/HeroSighting/location/display";
+        return "redirect:/location/display";
     }
 
 
@@ -488,7 +488,7 @@ public String viewAllSuperHeroes(Model model){
     public String deleteSighting(Model model, Integer id){
         heroDao.removeSighting(id);
 
-        return "redirect:/HeroSighting/sighting/display";
+        return "redirect:/sighting/display";
     }
 
     @PostMapping("/sighting/display")
@@ -516,7 +516,7 @@ public String viewAllSuperHeroes(Model model){
         heroDao.addSighting(sighting);
 
 
-        return "redirect:/HeroSighting/sighting/display";
+        return "redirect:/sighting/display";
     }
 
     @PostMapping("/editsighting/update")
@@ -540,7 +540,7 @@ public String viewAllSuperHeroes(Model model){
 
         heroDao.updateSighting(sighting);
 
-        return "redirect:/HeroSighting/sighting/display";
+        return "redirect:/sighting/display";
     }
 
 }
