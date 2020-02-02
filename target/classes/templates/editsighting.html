@@ -1,0 +1,130 @@
+
+<html xmlns:th="http//www.thymeleaf.org" xmlns ="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS --><script src="https://unpkg.com/vue@2.6.10/dist/vue.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Righteous|Sarabun|Ubuntu|Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/c50d94bbae.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link th:href="@{/css/main.css}" href="../static/css/main.css"
+          rel="stylesheet" type="text/css" media="screen"/>
+
+    <title>Hero Sightings</title>
+</head>
+<body class="background-image">
+
+<ul class="navbar navbar-expand-lg  nav-fill nav-pills col-md-12 navigation-bar">
+    <li class="nav-item active navigation-tabs">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/sighting/display">Sightings</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/organization/display">Organizations</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/superhero/display">Super Heroes</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/location/display">Locations</a>
+    </li>
+    <li class="nav-item navigation-tabs">
+        <a class="nav-link" href="/superpower/display">Super Powers</a>
+    </li>
+
+</ul>
+<h1 id="" class="title-headers text-center">Sighting</h1>
+<div class="body-container">
+
+    <div class="container-full-width row">
+        <div class="color-overlay-pages"></div>
+        <div class="col-4">
+
+            <h3 class="location-header">All Sightings</h3>
+            <div th:each="sight : ${sightings}">
+                <div class = "col-12 location-title">
+                    <div class="power edit">
+                        <h5 th:value= "${sight.id}" th:text="${sight.location.name}"></h5>
+                        <h6 th:value= "${sight.id}" class="sighting-lable" th:text="${#temporals.format(sight.date, 'MM/dd/yy')}"></h6>
+
+                    </div>
+
+                    <div class="buttons">
+                        <button class="col-5 btn-success editIcon editing"><a href="#" th:href="@{/editsighting/update(id=${sight.id})}" >Edit</a></button>
+                        <button class="col-5 btn-danger deleteIcon editing"><a href="#" th:href="@{/sighting/delete(id=${sight.id})}" >Delete</a></button>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-8">
+            <div class="col-12">
+
+
+                <div >
+                    <form  class="form-background" method="post" >
+                    <h4 class="page-title">Edit Sighting</h4>
+
+                        <div class="col-7 datetimepicker">
+                            <input type="datetime-local"  th:value = "${sighting.date}" name="datetime" id="datetimepicker" placeholder="enter date">
+                        </div>
+                    <div class="form-group">
+                        <label for="location" class="superpower-label">
+                            Edit Location</label>
+                        <div class="col-7">
+                            <select id="location" name="location"
+                                    class="superpower-list" placeholder="Location" >
+                                <option
+                                        th:each="location : ${locations}"
+                                        th:value="${location.id}"
+                                        th:text="${location.name}"
+                                        th:selected="${sighting.location.id == location.id}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <label for="members" class="superpower-label">
+                        Edit Super Heroes</label>
+                    <div class="col-7">
+                        <select multiple id="members" name="member"
+                                class="superpower-list" >
+                            <option th:each="member : ${members}"
+                                    th:value="${member.id}"
+                                    th:text="${member.name}"
+                                    th:selected ="${sighting.heroes.contains(member)}"
+                            >
+                                Super Heroes</option>
+                        </select>
+
+                    </div>
+                        <input type="hidden" th:value = "${sighting.id}" name="id">
+                        <div>
+                            <button type="submit" class=" location-button ">Update Sighting</button>
+
+                        </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/src/hero.js}"></script>
+</body>
+</html>
